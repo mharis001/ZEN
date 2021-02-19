@@ -118,7 +118,7 @@ private _fnc_serializeVehicle = {
 
     private _fuel = fuel _vehicle;
     private _inventory = _vehicle call FUNC(serializeInventory);
-    private _customization = _vehicle call BIS_fnc_getVehicleCustomization;
+    private _customization = _vehicle call FUNC(getVehicleCustomization);
     private _flagTexture = getForcedFlagTexture _vehicle;
 
     private _pylonMagazines = getPylonMagazines _vehicle;
@@ -182,8 +182,9 @@ private _fnc_serializeStatic = {
     private _simulationEnabled = simulationEnabled _object;
     private _inventory = _object call FUNC(serializeInventory);
     private _attachedObjects = _object call _fnc_serializeAttachedObjects;
+    private _customization = _object call FUNC(getVehicleCustomization);
 
-    [_type, _position, _direction, _simulationEnabled, _inventory, _attachedObjects]
+    [_type, _position, _direction, _simulationEnabled, _inventory, _attachedObjects, _customization]
 };
 
 private _fnc_serializeAttachedObjects = {

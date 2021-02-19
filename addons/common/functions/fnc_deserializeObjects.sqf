@@ -156,7 +156,7 @@ private _fnc_deserializeVehicle = {
         [_vehicle, "", []] call BIS_fnc_initVehicle;
     } else {
         _customization params ["_textures", "_animations"];
-        [_vehicle, _textures, _animations, true] call BIS_fnc_initVehicle;
+        [_vehicle, _textures, _animations, true] call FUNC(customizeVehicle);
     };
 
     {
@@ -222,7 +222,7 @@ private _fnc_deserializeVehicle = {
 };
 
 private _fnc_deserializeStatic = {
-    params ["_type", "_position", "_direction", "_simulationEnabled", "_inventory", "_attachedObjects"];
+    params ["_type", "_position", "_direction", "_simulationEnabled", "_inventory", "_attachedObjects", ["_customization", [[], []]]];
 
     _position = _position vectorAdd _centerPos;
 
@@ -246,6 +246,9 @@ private _fnc_deserializeStatic = {
 
     [_object, _inventory] call FUNC(deserializeInventory);
     [_object, _attachedObjects] call _fnc_deserializeAttachedObjects;
+
+    _customization params ["_textures", "_animations"];
+    [_object, _textures, _animations, true] call FUNC(customizeVehicle);
 
     _objects pushBack _object;
 

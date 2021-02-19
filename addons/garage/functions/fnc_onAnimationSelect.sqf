@@ -26,9 +26,10 @@ _ctrlListAnimations lbSetPicture [_selectedIndex, CHECK_ICONS select _value];
 // Create array of all animation states
 private _animations = [];
 for "_i" from 0 to (lbSize _ctrlListAnimations - 1) do {
-    _animations pushBack (_ctrlListAnimations lbData _i);
+    private _dataVar = _ctrlListAnimations lbData _i;
+    _animations pushBack (_ctrlListAnimations getVariable _dataVar);
     _animations pushBack (_ctrlListAnimations lbValue _i);
 };
 
 // Update vehicle animations
-[GVAR(center), nil, _animations, true] call BIS_fnc_initVehicle;
+[GVAR(center), nil, _animations, true, false] call EFUNC(common,customizeVehicle);

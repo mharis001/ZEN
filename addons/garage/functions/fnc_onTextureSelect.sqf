@@ -26,5 +26,8 @@ for "_i" from 0 to (lbSize _ctrlListTextures - 1) do {
 // Check selected texture
 _ctrlListTextures lbSetPicture [_selectedIndex, ICON_CHECKED];
 
+private _dataVar = _ctrlListTextures lbData _selectedIndex;
+private _texture = _ctrlListTextures getVariable _dataVar;
+
 // Update vehicle textures
-[GVAR(center), [_ctrlListTextures lbData _selectedIndex, 1]] call BIS_fnc_initVehicle;
+[GVAR(center), _texture] call EFUNC(common,customizeVehicle);

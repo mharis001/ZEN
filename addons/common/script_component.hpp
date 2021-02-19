@@ -90,3 +90,8 @@
 
 // Prevent certain magazines from being handled by ammo functions
 #define BLACKLIST_MAGAZINES ["Laserbatteries"]
+
+// Prevent certain source animations from being displayed in the garage
+#define WHITELIST_ANIMATION_SOURCES ["user", "door", "doors", "proxy"]
+#define BLACKLIST_ANIMATION_INNAMES ["proxy", "doors", "offset", "autoloader", "shtora", "elev", "obs", "offset", "recoil", "sight", "hook", "brakes", "eject", "vtol", "pip", "switch", "fuel", "burner" "rwr", "filter"]
+#define BLACKLIST_ANIMATION_ATTRIBUTES ["weapon", "wheel", "isComponent"]
