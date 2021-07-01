@@ -153,6 +153,11 @@
     _unit enableIRLasers _mode;
 }] call CBA_fnc_addEventHandler;
 
+[QGVAR(action), {
+    params ["_unit", "_actionParams"];
+    _unit action _actionParams;
+}] call CBA_fnc_addEventHandler;
+
 [QGVAR(moveInDriver), {
     params ["_unit", "_vehicle"];
     _unit moveInDriver _vehicle;
@@ -171,6 +176,11 @@
 [QGVAR(engineOn), {
     params ["_vehicle", "_state"];
     _vehicle engineOn _state;
+}] call CBA_fnc_addEventHandler;
+
+[QGVAR(selectWeapon), {
+    params ["_unit", "_muzzle"];
+    _unit selectWeapon _muzzle;
 }] call CBA_fnc_addEventHandler;
 
 [QGVAR(setPilotLight), {
