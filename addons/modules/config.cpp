@@ -70,6 +70,7 @@ class CfgPatches {
             QGVAR(moduleTracers),
             QGVAR(moduleTurretOptics),
             QGVAR(moduleUnGarrison),
+            QGVAR(moduleUnpackStaticWeapon),
             QGVAR(moduleVisibility),
             QGVAR(moduleWeather)
         };
