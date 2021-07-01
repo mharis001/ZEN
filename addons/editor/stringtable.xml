@@ -245,5 +245,32 @@
             <English>Reloads the Zeus interface. Can be used to fix lockup issues.</English>
             <Japanese>Zeus インターフェースを再描画します。不具合の修正に使用可能です。</Japanese>
         </Key>
+        <Key ID="STR_ZEN_Editor_WatchCuratorCamera">
+            <English>Watch Curator Camera</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_WatchCursor">
+            <English>Watch Cursor</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_WatchCursor_Description">
+            <English>Makes all selected units watch the cursor location. Pressing this command with the cursor over a selected unit will cancel the watch target.</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_ForceFire">
+            <English>Force Fire</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_ForceFire_Description">
+            <English>Hold to force all selected units to fire their current weapon.</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_MoveToCursor">
+            <English>Move To Cursor</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_MoveToCursor_Description">
+            <English>Makes all selected units move to the cursor location. Units will return to formation and waypoint afterward.</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_ToggleAIPATH">
+            <English>Toggle AI PATH</English>
+        </Key>
+        <Key ID="STR_ZEN_Editor_ToggleAIPATH_Description">
+            <English>Makes all selected units start or stop moving. Does not affect aiming or shooting.</English>
+        </Key>
     </Package>
 </Project>

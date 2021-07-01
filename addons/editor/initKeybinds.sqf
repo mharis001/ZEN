@@ -110,3 +110,99 @@
         true // handled
     };
 }, {}, [DIK_R, [true, true, false]]] call CBA_fnc_addKeybind; // Default: CTRL + SHIFT + R
+
+[ELSTRING(main,DisplayName), QGVAR(watchCuratorCamera), [LSTRING(WatchCuratorCamera), LSTRING(WatchCuratorCamera_Description)], {
+    if (!isNull curatorCamera && {!GETMVAR(RscDisplayCurator_search,false) && {count SELECTED_OBJECTS > 0}}) then {
+        private _pos = getPos curatorCamera;
+        {
+            if (!isNull group _x && {!isPlayer _x}) then {
+                [QEGVAR(common,doWatch), [_x, _pos], _x] call CBA_fnc_targetEvent;
+                [2, [_x, _pos, []]] call EFUNC(common,hintAddElement);
+                [2, ["\a3\ui_f\data\IGUI\Cfg\simpleTasks\types\scout_ca.paa", [], _pos, 1, 1, 0]] call EFUNC(common,hintAddElement);
+            };
+        } forEach SELECTED_OBJECTS;
+
+        true // handled
+    };
+}, {}, [0, [false, false, false]]] call CBA_fnc_addKeybind; // Default: Unbound
+
+[ELSTRING(main,DisplayName), QGVAR(watchCursor), [LSTRING(WatchCursor), LSTRING(WatchCursor_Description)], {
+    if (!isNull curatorCamera && {!GETMVAR(RscDisplayCurator_search,false) && {count SELECTED_OBJECTS > 0}}) then {
+        curatorMouseOver params ["_type", "_entity"];
+        private _isCancelling = _type == "OBJECT" && {_entity in SELECTED_OBJECTS};
+        private _cursorPosASL = [] call EFUNC(common,getPosFromScreen);
+        {
+            if (!isNull group _x && {!isPlayer _x}) then {
+                [QEGVAR(common,doWatch), [_x, [ASLToAGL _cursorPosASL, objNull] select _isCancelling], _x] call CBA_fnc_targetEvent;
+                [2, [_x, ASLToAGL _cursorPosASL, []]] call EFUNC(common,hintAddElement);
+                [2, ["\a3\ui_f\data\IGUI\Cfg\simpleTasks\types\scout_ca.paa", [], ASLToAGL _cursorPosASL, 1, 1, 0]] call EFUNC(common,hintAddElement);
+            };
+        } forEach SELECTED_OBJECTS;
+
+        true // handled
+    };
+}, {}, [0, [false, false, false]]] call CBA_fnc_addKeybind; // Default: Unbound
+
+[ELSTRING(main,DisplayName), QGVAR(forceFire), [LSTRING(ForceFire), LSTRING(ForceFire_Description)], {
+    if (!isNull curatorCamera && {!GETMVAR(RscDisplayCurator_search,false) && {count SELECTED_OBJECTS > 0}}) then {
+        private _shooters = SELECTED_OBJECTS select {!isNull group _x && {!isPlayer _x}};
+        [QEGVAR(common,ForceFire), [clientOwner, _shooters], _shooters] call CBA_fnc_targetEvent;
+
+        true // handled
+    };
+}, {
+    [QEGVAR(common,ForceFire), [clientOwner, []]] call CBA_fnc_globalEvent;
+}, [0, [false, false, false]]] call CBA_fnc_addKeybind; // Default: Unbound
+
+[ELSTRING(main,DisplayName), QGVAR(moveToCursor), [LSTRING(MoveToCursor), LSTRING(MoveToCursor_Description)], {
+    if (!isNull curatorCamera && {!GETMVAR(RscDisplayCurator_search,false)}) then {
+        private _cursorPosASL = [] call EFUNC(common,getPosFromScreen);
+
+        {
+            if (!isNull driver _x && {!isPlayer _x}) then {
+                [QEGVAR(common,doMove), [_x, ASLToAGL _cursorPosASL], _x] call CBA_fnc_targetEvent;
+                [2, [_x, ASLToAGL _cursorPosASL, []]] call EFUNC(common,hintAddElement);
+                [2, ["\a3\ui_f\data\IGUI\Cfg\simpleTasks\types\walk_ca.paa", [], ASLToAGL _cursorPosASL, 1, 1, 0]] call EFUNC(common,hintAddElement);
+            };
+        } forEach SELECTED_OBJECTS;
+
+        true // handled
+    };
+}, {}, [0, [false, false, false]]] call CBA_fnc_addKeybind; // Default: Unbound
+
+[ELSTRING(main,DisplayName), QGVAR(toggleAIPATH), [LSTRING(ToggleAIPATH), LSTRING(ToggleAIPATH_Description)], {
+    if (!isNull curatorCamera && {!GETMVAR(RscDisplayCurator_search,false) && {SELECTED_OBJECTS isNotEqualTo []}}) then {
+        private _disabled = 0;
+        private _enabled = 0;
+
+        {
+            if (_x == driver vehicle _x && {!isPlayer _x}) then {
+                private _isAIEnabledPATH = _x checkAIFeature "PATH";
+                private _AIEvent = [QEGVAR(common,enableAI), QEGVAR(common,disableAI)] select _isAIEnabledPATH;
+                [_AIEvent, [_x, "PATH"], _x] call CBA_fnc_globalEvent;
+                if (_isAIEnabledPATH) then {
+                    _disabled = _disabled + 1;
+                } else {
+                    _enabled = _enabled + 1;
+                };
+            };
+        } forEach SELECTED_OBJECTS;
+
+        [
+            "%1 %2%3",
+            localize LSTRING(ToggleAIPATH),
+            if (_disabled > 0) then {
+                format [" - %1: %2", localize ELSTRING(common,Disabled), _disabled]
+            } else {
+                ""
+            },
+            if (_enabled > 0) then {
+                format [" - %1: %2", localize ELSTRING(common,Enabled), _enabled]
+            } else {
+                ""
+            }
+        ] call EFUNC(common,showMessage);
+
+        true // handled
+    };
+}, {}, [0, [false, false, false]]] call CBA_fnc_addKeybind; // Default: Unbound
